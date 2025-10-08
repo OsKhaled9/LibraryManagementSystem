@@ -1,0 +1,112 @@
+﻿@model EditBookViewModel
+@{
+    ViewData["Title"] = "Edit Book";
+    SelectList optionCategories = new SelectList(Model.Categories, "Id", "Name");
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0 text-center">
+                        <i class="bi bi-pencil-square me-2"></i> Add New Book
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <form asp-controller="Books" asp-action="Edit" method="post" enctype="multipart/form-data">
+                        <input asp-for="Id" hidden />
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label asp-for="Title" class="form-label"></label>
+                                        <input asp-for="Title" class="form-control" placeholder="Enter book title">
+                                        <span asp-validation-for="Title" class="text-danger small"></span>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label asp-for="Author" class="form-label"></label>
+                                        <input asp-for="Author" class="form-control" placeholder="Enter author name">
+                                        <span asp-validation-for="Author" class="text-danger small"></span>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label asp-for="ISBN" class="form-label"></label>
+                                        <input asp-for="ISBN" class="form-control" placeholder="Enter ISBN">
+                                        <span asp-validation-for="ISBN" class="text-danger small"></span>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label asp-for="PublishYear" class="form-label"></label>
+                                        <input asp-for="PublishYear" class="form-control" placeholder="Enter publish year">
+                                        <span asp-validation-for="PublishYear" class="text-danger small"></span>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label asp-for="AvailableCopies" class="form-label"></label>
+                                        <input asp-for="AvailableCopies" type="number" class="form-control">
+                                        <span asp-validation-for="AvailableCopies" class="text-danger small"></span>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label asp-for="CategoryId" class="form-label"></label>
+                                        <select asp-for="CategoryId" asp-items="optionCategories" class="form-select">
+                                            <option value="">Choose Category</option>
+                                        </select>
+                                        <span asp-validation-for="CategoryId" class="text-danger small"></span>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label asp-for="BookCover" class="form-label"></label>
+                                    <input asp-for="BookCover" type="file" id="Cover" name="BookCover" class="form-control" accept=".jpg,.jpeg,.png"
+                                           data-rule-extension="@FileSettings.AllowedExtensions.Replace(".", string.Empty)"
+                                           data-msg-extension="Only (@FileSettings.AllowedExtensions) are allowed"
+                                           data-rule-filesize="@FileSettings.MaxFileSizeInBytes"
+                                           data-msg-filesize="Maximum allowed size is @FileSettings.MaxFileSizeInMB MB">
+                                    <small class="form-text text-muted text-small">Only (@FileSettings.AllowedExtensions) files are allowd with Max size (@FileSettings.MaxFileSizeInMB) MB</small>
+                                    <span asp-validation-for="BookCover" class="text-danger small d-block"></span>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label asp-for="Description" class="form-label"></label>
+                                    <textarea asp-for="Description" class="form-control" placeholder="Enter book description"></textarea>
+                                    <span asp-validation-for="Description" class="text-danger small"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="form-label" style="margin-left: 17%;">Cover Preview</label>
+                                <div style="border: 2px solid black;width: 320px;height: 420px; border-radius: 10px;margin-left: 17%;">
+                                    <img src="@($"{FileSettings.BooksImagesPath}/{Model.CurrentCover}")" class="cover-preview rounded" alt="Cover" style="width: 316px; height: 416px;" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mt-4">
+                            <div class="col-12">
+                                <div class="d-flex gap-2">
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="bi bi-check-circle me-2"></i>Save
+                                    </button>
+                                    <a type="button" class="btn btn-outline-secondary" asp-controller="Books" asp-action="Index">
+                                        <i class="bi bi-x-circle me-2"></i>Cancel
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/filesize-validator.js" asp-append-version="true"></script>
+    <script src="~/js/extension-validator.js" asp-append-version="true"></script>
+    <script src="~/js/game-form.js" asp-append-version="true"></script>
+}

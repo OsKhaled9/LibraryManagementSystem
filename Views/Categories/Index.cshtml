@@ -1,0 +1,83 @@
+﻿@model List<Category>
+
+@{
+    ViewData["Title"] = "Categories";
+}
+
+<!-- Main Content -->
+<div class="container mt-4">
+    <!-- Page 1: Categories List -->
+    <div id="categoriesList" class="page-content">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="text-primary">
+                🏷️ Categories
+            </h2>
+            <a class="btn btn-primary" asp-controller="Categories" asp-action="Add">
+                <i class="bi bi-plus-circle me-2"></i>Add New Category
+            </a>
+        </div>
+
+        <div class="card shadow-sm">
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead class="table-primary">
+                            <tr>
+                                <th class="ps-4">Name</th>
+                                <th>Description</th>
+                                <th>Count Books</th>
+                                <th width="120">Details</th>
+                                <th width="120"></th>
+                                <th width="120"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var category in Model)
+                            {
+                                <tr>
+                                    <td class="ps-4 fw-bold">@category.Name</td>
+                                    <td>
+                                        <div style ="max-height: 80px; overflow-y: auto; white-space: normal;">
+                                            @category.Description
+                                        </div>
+                                    </td>
+                                    <td>@category.Books.Count</td>
+                                    <td>
+                                        <a class="btn btn-outline-primary btn-sm" asp-controller="Categories" asp-action="Details" asp-route-id="@category.Id">
+                                            <i class="bi bi-eye me-1"></i>View
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-outline-info btn-sm" asp-controller="Categories" asp-action="Edit" asp-route-id="@category.Id">
+                                            <i class="bi bi-pen me-1"></i>Edit
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="javascript:;" class="btn btn-outline-danger btn-sm js-delete"
+                                           data-id="@category.Id"
+                                           data-url="/Categories/Delete/"
+                                           data-name="@category.Name"
+                                           data-entity-type="Category"
+                                           data-redirectAction="/Categories/Index">
+                                            <i class="bi bi-trash me-1"></i>Delete
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.AntiForgeryToken()
+
+@section scripts{
+    <script>
+        $(document).ready(function(){
+            bootBoxDelete();
+        });
+    </script>
+}

@@ -1,0 +1,43 @@
+﻿@model Category
+
+@{
+    ViewData["Title"] = "Add Category";
+}
+
+<!-- Page 3: Add New Category -->
+<div id="addCategory" class="page-content">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="text-primary">
+            <i class="bi bi-plus-circle me-2"></i>Add New Category
+        </h2>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <form method="post" asp-controller="Categories" asp-action="Add">
+                <div class="mb-3">
+                    <label asp-for="Name" class="form-label fw-bold"></label>
+                    <input asp-for="Name" type="text" class="form-control" id="categoryName" placeholder="Enter category name">
+                    <span asp-validation-for="Name" class="text-danger small"></span>
+                </div>
+                <div class="mb-4">
+                    <label asp-for="Description" class="form-label fw-bold"></label>
+                    <textarea asp-for="Description" class="form-control" id="categoryDescription" placeholder="Enter category description"></textarea>
+                    <span asp-validation-for="Description" class="text-danger small"></span>
+                </div>
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-check-circle me-2"></i>Save
+                    </button>
+                    <a type="button" class="btn btn-outline-secondary" asp-controller="Categories" asp-action="Index">
+                        <i class="bi bi-x-circle me-2"></i>Cancel
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial"></partial>
+}
