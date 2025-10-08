@@ -7,6 +7,7 @@ namespace Readify_Library.UnitOfWork
     {
         IGenericRepository<Category> Categories { get; }
         IBookRepository Books { get; }
+        IGenericRepository<UserType> UsersTypes { get; }
 
         Task SaveAsync();
     }

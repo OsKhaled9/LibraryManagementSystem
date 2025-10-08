@@ -16,7 +16,7 @@ namespace Readify_Library.Repository.Implementation
             _context = context;
         }
 
-        public async Task<IEnumerable<T>> GetAllAsync(string[] includes)
+        public async Task<IEnumerable<T>> GetAllAsync(string[] includes = null)
         {
             IQueryable<T> query = _context.Set<T>();
             

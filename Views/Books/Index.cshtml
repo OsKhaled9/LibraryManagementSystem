@@ -29,50 +29,61 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var book in Model)
+                    @if (Model is not null && Model.Any())
+                    {
+                        @foreach (var book in Model)
+                        {
+                            <tr>
+                                <td class="ps-4 align-middle fw-medium">@book.Title</td>
+                                <td class="align-middle">@book.Author</td>
+                                <td class="text-center align-middle">
+                                    <span class="available-copies badge bg-primary rounded-pill fs-6 px-3 py-2">
+                                        @book.AvailableCopies
+                                    </span>
+                                </td>
+                                <td class="text-center align-middle">
+                                    <div class="d-flex justify-content-center gap-2">
+                                        <button type="button" class="btn btn-outline-success btn-sm increase-copy-btn" title="Increase Copies"
+                                                data-id="@book.Id"
+                                                data-url="/Books/IncreaseCopies/">
+                                            <i class="bi bi-plus-lg"></i>
+                                        </button>
+
+                                        <button type="button" class="btn btn-outline-warning btn-sm decrease-copy-btn" @(book.AvailableCopies <= 0 ? "disabled" : "") title="Decrease Copies"
+                                                data-id="@book.Id"
+                                                data-url="/Books/DecreaseCopies/">
+                                            <i class="bi bi-dash-lg"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                                <td class="text-center align-middle">
+                                    <div class="d-flex justify-content-center gap-2">
+                                        <a asp-controller="Books" asp-action="Details" asp-route-id="@book.Id" class="btn btn-outline-primary btn-sm">
+                                            <i class="bi bi-eye me-1"></i> View
+                                        </a>
+
+                                        <a asp-controller="Books" asp-action="Edit" asp-route-id="@book.Id" class="btn btn-outline-info btn-sm">
+                                            <i class="bi bi-pencil me-1"></i> Edit
+                                        </a>
+
+                                        <a href="javascript:;" class="btn btn-outline-danger btn-sm js-delete"
+                                           data-id="@book.Id"
+                                           data-url="/Books/Delete/"
+                                           data-name="@book.Title"
+                                           data-entity-type="Book"
+                                           data-redirectAction="/Books/Index">
+                                            <i class="bi bi-trash me-1"></i>Delete
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
                     {
                         <tr>
-                            <td class="ps-4 align-middle fw-medium">@book.Title</td>
-                            <td class="align-middle">@book.Author</td>
-                            <td class="text-center align-middle">
-                                <span class="available-copies badge bg-primary rounded-pill fs-6 px-3 py-2">
-                                    @book.AvailableCopies
-                                </span>
-                            </td>
-                            <td class="text-center align-middle">
-                                <div class="d-flex justify-content-center gap-2">
-                                    <button type="button" class="btn btn-outline-success btn-sm increase-copy-btn" title="Increase Copies"
-                                            data-id="@book.Id"
-                                            data-url="/Books/IncreaseCopies/">
-                                        <i class="bi bi-plus-lg"></i>
-                                    </button>
-
-                                    <button type="button" class="btn btn-outline-warning btn-sm decrease-copy-btn" @(book.AvailableCopies <= 0 ? "disabled" : "") title="Decrease Copies"
-                                            data-id="@book.Id"
-                                            data-url="/Books/DecreaseCopies/">
-                                        <i class="bi bi-dash-lg"></i>
-                                    </button>
-                                </div>
-                            </td>
-                            <td class="text-center align-middle">
-                                <div class="d-flex justify-content-center gap-2">
-                                    <a asp-controller="Books" asp-action="Details" asp-route-id="@book.Id" class="btn btn-outline-primary btn-sm">
-                                        <i class="bi bi-eye me-1"></i> View
-                                    </a>
-
-                                    <a asp-controller="Books" asp-action="Edit" asp-route-id="@book.Id" class="btn btn-outline-info btn-sm">
-                                        <i class="bi bi-pencil me-1"></i> Edit
-                                    </a>
-
-                                    <a href="javascript:;" class="btn btn-outline-danger btn-sm js-delete"
-                                       data-id="@book.Id"
-                                       data-url="/Books/Delete/"
-                                       data-name="@book.Title"
-                                       data-entity-type="Book"
-                                       data-redirectAction="/Books/Index">
-                                        <i class="bi bi-trash me-1"></i>Delete
-                                    </a>
-                                </div>
+                            <td colspan="6" class="text-center text-muted py-4">
+                                <i class="bi bi-info-circle text-info me-2"></i> No Books found.
                             </td>
                         </tr>
                     }

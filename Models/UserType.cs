@@ -14,19 +14,16 @@ namespace Readify_Library.Models
         public int Id { get; set; }
         public enTypesNames TypeName { get; set; }
 
-        [MinLength(1)]
-        [MaxLength(50)]
+        [Range(0, 50, ErrorMessage = "Extra Books Must be Betwwen 0 - 50")]
         public int ExtraBooks { get; set; }
 
-        [MinLength(1)]
-        [MaxLength(100)]
+        [Range(0, 100, ErrorMessage = "Extra Days Must be Betwwen 0 - 100")]
         public int ExtraDays { get; set; }
 
-        [MinLength(1)]
-        [MaxLength(1000)]
+        [Range(0, 1000, ErrorMessage = "Extra Penalty Must be Betwwen 0 - 1000")]
         public decimal ExtraPenalty { get; set; }
 
 
-        public List<ApplicationUser> Users { get; set; }
+        public List<ApplicationUser>? Users { get; set; }
     }
 }
