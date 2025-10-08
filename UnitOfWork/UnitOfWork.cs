@@ -11,6 +11,7 @@ namespace Readify_Library.UnitOfWork
 
         public IGenericRepository<Category> Categories { get; private set; }
         public IBookRepository Books { get; private set; }
+        public IGenericRepository<UserType> UsersTypes { get; private set; }
 
         public UnitOfWork(ApplicationDbContext context, IWebHostEnvironment webHostEnvironment)
         {
@@ -18,6 +19,7 @@ namespace Readify_Library.UnitOfWork
             _webHostEnvironment = webHostEnvironment;
             Categories = new GenericRepository<Category>(_context);
             Books = new BookRepository(_context, _webHostEnvironment);
+            UsersTypes = new GenericRepository<UserType>(_context);
         }
 
         public async Task SaveAsync()

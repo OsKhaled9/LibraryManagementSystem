@@ -1,0 +1,71 @@
+﻿@model UserType
+
+@{
+    ViewData["Title"] = "Edit Tier";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0 text-center">
+                        <i class="bi bi-pencil-square me-2"></i> Edit Tier
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <form asp-controller="UsersTypes" asp-action="Edit" method="post">
+                        <input type="hidden" asp-for="Id" />
+
+                        <div class="row mb-4">
+                            <div class="col-12 text-center">
+                                <div class="px-4 py-3 bg-light text-dark fw-bold rounded-3 shadow-sm"
+                                     style="letter-spacing: 4px; font-size: 1.4rem; text-transform: uppercase; border: 2px dashed purple;">
+                                    @Model.TypeName
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="ExtraBooks" class="form-label fw-bold"></label>
+                                <input asp-for="ExtraBooks" type="number" class="form-control" placeholder="Enter number of books">
+                                <span asp-validation-for="ExtraBooks" class="text-danger small"></span>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="ExtraDays" class="form-label fw-bold"></label>
+                                <input asp-for="ExtraDays" type="number" class="form-control" placeholder="Enter borrowing days">
+                                <span asp-validation-for="ExtraDays" class="text-danger small"></span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12 mb-3">
+                                <label asp-for="ExtraPenalty" class="form-label fw-bold"></label>
+                                <input asp-for="ExtraPenalty" type="number" class="form-control" placeholder="Enter late fee amount">
+                                <span asp-validation-for="ExtraPenalty" class="text-danger small"></span>
+                            </div>
+                        </div>
+
+                        <div class="row mt-4">
+                            <div class="col-12">
+                                <div class="d-flex gap-2">
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="bi bi-check-circle me-2"></i> Save
+                                    </button>
+                                    <a type="button" class="btn btn-outline-secondary" asp-controller="UsersTypes" asp-action="Index">
+                                        <i class="bi bi-x-circle me-2"></i> Cancel
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
