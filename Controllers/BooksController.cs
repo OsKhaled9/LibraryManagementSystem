@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Readify_Library.Helpers;
+using Readify_Library.Settings;
 using Readify_Library.UnitOfWork;
 using Readify_Library.ViewModels;
 using System.Threading.Tasks;
@@ -11,10 +12,14 @@ namespace Readify_Library.Controllers
     public class BooksController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly string _BookImagePath;
 
-        public BooksController(IUnitOfWork unitOfWork)
+        public BooksController(IUnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment)
         {
             _unitOfWork = unitOfWork;
+            _webHostEnvironment = webHostEnvironment;
+            _BookImagePath = $"{_webHostEnvironment.WebRootPath}{FileSettings.BooksImagesPath}";
         }
 
         #region All Books
@@ -121,6 +126,9 @@ namespace Readify_Library.Controllers
                 return Json(new { success = false, message = "Book Not Found" });
 
             // Condtion (When there are a Borowings for this book) in Future
+
+            if (!string.IsNullOrEmpty(book.ImageURL))
+                Utilities.DeleteFile(book.ImageURL, _BookImagePath);
 
             await _unitOfWork.Books.DeleteAsync(id);
             await _unitOfWork.SaveAsync();

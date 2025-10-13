@@ -1,0 +1,166 @@
+﻿@model CreateUserViewModel
+@{
+    ViewData["Title"] = "Add New User";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0 text-center">
+                        <i class="bi bi-person-plus me-2"></i> Add New User
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <form asp-controller="Users" asp-action="Add" method="post" enctype="multipart/form-data">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label asp-for="FirstName" class="form-label"></label>
+                                        <input asp-for="FirstName" class="form-control" placeholder="Enter first name">
+                                        <span asp-validation-for="FirstName" class="text-danger small"></span>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label asp-for="LastName" class="form-label"></label>
+                                        <input asp-for="LastName" class="form-control" placeholder="Enter last name">
+                                        <span asp-validation-for="LastName" class="text-danger small"></span>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label asp-for="Email" class="form-label"></label>
+                                        <input asp-for="Email" class="form-control" placeholder="Enter email address">
+                                        <span asp-validation-for="Email" class="text-danger small"></span>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label asp-for="PhoneNumber" class="form-label"></label>
+                                        <input asp-for="PhoneNumber" class="form-control" placeholder="Enter phone number">
+                                        <span asp-validation-for="PhoneNumber" class="text-danger small"></span>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label asp-for="Password" class="form-label"></label>
+                                        <input asp-for="Password" type="password" class="form-control" placeholder="Enter password">
+                                        <span asp-validation-for="Password" class="text-danger small"></span>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label asp-for="ConfirmPassword" class="form-label"></label>
+                                        <input asp-for="ConfirmPassword" type="password" class="form-control" placeholder="Confirm password">
+                                        <span asp-validation-for="ConfirmPassword" class="text-danger small"></span>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label asp-for="Address" class="form-label"></label>
+                                    <input asp-for="Address" class="form-control" placeholder="Enter user address">
+                                    <span asp-validation-for="Address" class="text-danger small"></span>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label asp-for="DateOfBirth" class="form-label"></label>
+                                        <input asp-for="DateOfBirth" type="date" class="form-control">
+                                        <span asp-validation-for="DateOfBirth" class="text-danger small"></span>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3" id="userTypeGroup">
+                                        <label asp-for="UserTypeId" class="form-label"></label>
+                                        <select asp-for="UserTypeId" class="form-select" id="UserTypeId" asp-items="@(new SelectList(Model.UsersTypes, "Id", "TypeName"))">
+                                            <option value="">Choose User Type</option>
+                                        </select>
+                                        <span asp-validation-for="UserTypeId" class="text-danger small"></span>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label asp-for="RoleId" class="form-label"></label>
+                                        <select asp-for="RoleId" class="form-select" id="roleSelect" asp-items="Model.Roles">
+                                            <option value="">Choose Role</option>
+                                        </select>
+                                        <span asp-validation-for="RoleId" class="text-danger small"></span>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label asp-for="ProfileImage" class="form-label"></label>
+                                    <input asp-for="ProfileImage" type="file" id="Cover" name="ProfileImage" class="form-control" accept=".jpg,.jpeg,.png"
+                                           data-rule-extension="@FileSettings.AllowedExtensions.Replace(".", string.Empty)"
+                                           data-msg-extension="Only (@FileSettings.AllowedExtensions) are allowed"
+                                           data-rule-filesize="@FileSettings.MaxFileSizeInBytes"
+                                           data-msg-filesize="Maximum allowed size is @FileSettings.MaxFileSizeInMB MB">
+                                    <small class="form-text text-muted text-small">Only (@FileSettings.AllowedExtensions) files are allowd with Max size (@FileSettings.MaxFileSizeInMB) MB</small>
+                                    <span asp-validation-for="ProfileImage" class="text-danger small d-block"></span>
+                                </div>
+
+                                <div class="mb-3 form-check">
+                                    <input asp-for="IsActive" class="form-check-input">
+                                    <label asp-for="IsActive" class="form-check-label">Active User</label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="form-label text-center d-block">Profile Preview</label>
+                                <div style="border: 2px solid #dee2e6; width: 100%; height: 300px; border-radius: 10px; overflow: hidden; background-color: #f8f9fa; display: flex; align-items: center; justify-content: center;">
+                                    <img class="cover-preview img-fluid" alt="Profile Preview"
+                                         style="max-width: 100%; max-height: 100%; object-fit: contain;" />
+                                </div>
+                                <div class="text-center mt-2">
+                                    <small class="text-muted">Profile image preview</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mt-4">
+                            <div class="col-12">
+                                <div class="d-flex gap-2">
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="bi bi-check-circle me-2"></i>Save
+                                    </button>
+                                    <a type="button" class="btn btn-outline-secondary" asp-controller="Users" asp-action="Index">
+                                        <i class="bi bi-x-circle me-2"></i>Cancel
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/filesize-validator.js" asp-append-version="true"></script>
+    <script src="~/js/extension-validator.js" asp-append-version="true"></script>
+    <script src="~/js/cover-form.js" asp-append-version="true"></script>
+
+   @*  <script>
+        $(document).ready(function() {
+            // when role changed
+            $('#roleSelect').change(function() {
+                var selectedRole = $(this).val();
+                var roleText = $('#roleSelect option:selected').text().toLowerCase();
+                var userTypeSelect = $('#UserTypeId');
+
+                if (roleText.includes('admin')) {
+                    $('#userTypeGroup').hide();
+                    userTypeSelect.val(''); // نفرغ القيمة
+                    userTypeSelect.prop('disabled', true); // نعطل الحقل
+                } else {
+                    $('#userTypeGroup').show();
+                    userTypeSelect.prop('disabled', false); // نفعّل الحقل
+                }
+            });
+
+            // when page is triggered
+            $('#roleSelect').trigger('change');
+        });
+    </script> *@
+}
