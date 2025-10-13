@@ -26,9 +26,12 @@ namespace Readify_Library.Models
 
         public bool IsActive { get; set; } = true;
 
-        [MinLength(1)]
-        [MaxLength(200)]
+        [Display(Name = "Number of Books Available")]
+        [Range(1, 100, ErrorMessage = "Number of Books Available Must be Betwwen 1 - 100")]
         public int NumberOfBooksAvailable { get; set; }
+
+        [Display(Name = "Profile Image")]
+        public string? ProfileImageURL { get; set; }
 
 
         [ForeignKey(nameof(UserType))]
@@ -38,5 +41,6 @@ namespace Readify_Library.Models
 
 
         public List<Borrowing> Borrowings { get; set; }
+        public List<Notification> Notifications { get; set; }
     }
 }

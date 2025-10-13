@@ -1,4 +1,5 @@
-﻿using Readify_Library.Models;
+﻿using Microsoft.AspNetCore.Identity;
+using Readify_Library.Models;
 using Readify_Library.Repository.Implementation;
 using Readify_Library.Repository.Interfaces;
 
@@ -17,6 +18,7 @@ namespace Readify_Library.UnitOfWork
         {
             _context = context;
             _webHostEnvironment = webHostEnvironment;
+
             Categories = new GenericRepository<Category>(_context);
             Books = new BookRepository(_context, _webHostEnvironment);
             UsersTypes = new GenericRepository<UserType>(_context);

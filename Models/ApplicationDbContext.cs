@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Readify_Library.Settings;
 using System.Reflection.Emit;
 
 namespace Readify_Library.Models
@@ -15,6 +17,7 @@ namespace Readify_Library.Models
         public DbSet<Book> Books { get; set; }
         public DbSet<Borrowing> Borrowings { get; set; }
         public DbSet<UserType> UsersTypes { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -58,6 +61,22 @@ namespace Readify_Library.Models
                    ExtraDays = 10,
                    ExtraPenalty = 5.00m
                }
+            );
+
+            builder.Entity<IdentityRole>().HasData
+            (
+                new IdentityRole
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Name = SystemRoles.Admin,
+                    NormalizedName = SystemRoles.Admin.ToUpper(),
+                },
+                new IdentityRole
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Name = SystemRoles.User,
+                    NormalizedName= SystemRoles.User.ToUpper(),
+                }
             );
         }
     }
