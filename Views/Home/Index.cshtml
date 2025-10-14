@@ -1,123 +1,88 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model List<DisplayAllBooksViewModel>
+
+@{
+    ViewData["Title"] = "Our Books Collection";
+    Layout = "_HomeLayout";
 }
 
-<!-- Header -->
-<header class="bg-purple text-white py-4 mb-4 shadow">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-md-8">
-                <h1 class="display-5 fw-bold mb-2">Welcome to the One Reader Library</h1>
-                <p class="lead mb-0">Manage your books, categories, and memberships with ease.</p>
-            </div>
-            <div class="col-md-4 text-md-end">
-                <div class="d-inline-block p-3 rounded-circle bg-white text-center shadow">
-                    <i class="bi bi-person-fill text-purple fs-1"></i>
-                </div>
-            </div>
-        </div>
-    </div>
-</header>
-
-<!-- Main Content -->
-<div class="container">
-    <!-- Stats Cards -->
+<div class="container mt-4">
+    <!-- Page Header -->
     <div class="row mb-4">
-        <div class="col-md-4 mb-3">
-            <div class="card border-0 bg-purple text-white shadow-sm card-hover">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <h4 class="card-title">Total Users</h4>
-                            <h2 class="mb-0">1,245</h2>
-                            <p class="mb-0">+12% from last month</p>
-                        </div>
-                        <i class="bi bi-people-fill fs-1"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 mb-3">
-            <div class="card border-0 bg-success text-white shadow-sm card-hover">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <h4 class="card-title">Total Books</h4>
-                            <h2 class="mb-0">8,763</h2>
-                            <p class="mb-0">+5% from last month</p>
-                        </div>
-                        <i class="bi bi-book-half fs-1"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 mb-3">
-            <div class="card border-0 bg-warning text-white shadow-sm card-hover">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <h4 class="card-title">Active Borrowings</h4>
-                            <h2 class="mb-0">342</h2>
-                            <p class="mb-0">-3% from last week</p>
-                        </div>
-                        <i class="bi bi-clock-history fs-1"></i>
-                    </div>
-                </div>
-            </div>
+        <div class="col-12">
+            <h2 class="text-primary fw-bold">
+                <i class="bi bi-book me-2"></i>Our Book Collection
+            </h2>
+            <p class="text-muted">Discover and borrow from our wide selection of books</p>
         </div>
     </div>
 
-    <!-- Section Cards -->
-    <div class="row">
-        <div class="col-md-4 mb-4">
-            <div class="card border-0 border-top border-4 border-purple shadow-sm h-100 card-hover">
-                <div class="card-body text-center p-4">
-                    <i class="bi bi-people-fill text-purple fs-1 mb-3"></i>
-                    <h4 class="card-title fw-bold mb-3">Users</h4>
-                    <p class="card-text mb-4">Add, update and manage all library users.</p>
-                    <button class="btn btn-outline-primary rounded-pill px-4 btn-hover">View Users</button>
-                </div>
+    <!-- Search and Filters -->
+    <div class="row mb-4">
+        <div class="col-md-6 mb-2">
+            <div class="input-group">
+                <span class="input-group-text bg-primary text-white">
+                    <i class="bi bi-search"></i>
+                </span>
+                <input type="text" class="form-control" placeholder="Search books by title, author, or category...">
             </div>
         </div>
-        <div class="col-md-4 mb-4">
-            <div class="card border-0 border-top border-4 border-success shadow-sm h-100 card-hover">
-                <div class="card-body text-center p-4">
-                    <i class="bi bi-book-half text-success fs-1 mb-3"></i>
-                    <h4 class="card-title fw-bold mb-3">Books</h4>
-                    <p class="card-text mb-4">Browse, add, and manage library books.</p>
-                    <button class="btn btn-outline-success rounded-pill px-4 btn-hover">View Books</button>
-                </div>
+        <div class="col-md-2 mb-2">
+            <div class="d-flex gap-2">
+                <button class="btn btn-primary w-100">
+                    <i class="bi bi-search me-1"></i>Search
+                </button>
+                <button class="btn btn-outline-secondary">
+                    <i class="bi bi-arrow-clockwise"></i>
+                </button>
             </div>
         </div>
-        <div class="col-md-4 mb-4">
-            <div class="card border-0 border-top border-4 border-info shadow-sm h-100 card-hover">
-                <div class="card-body text-center p-4">
-                    <i class="bi bi-folder-fill text-info fs-1 mb-3"></i>
-                    <h4 class="card-title fw-bold mb-3">Categories</h4>
-                    <p class="card-text mb-4">Organize books into categories for easy access.</p>
-                    <button class="btn btn-outline-info rounded-pill px-4 btn-hover">View Categories</button>
+    </div>
+    <hr />
+
+    <!-- Books Grid -->
+    <div class="row g-3">
+        @foreach (var book in Model)
+        {
+            <div class="col-md-6 col-lg-4 col-xl-3">
+                <div class="card h-100 shadow-sm border-0">
+                    <!-- Book Image -->
+                    <div class="bg-light d-flex align-items-center justify-content-center p-2" style="height: 200px;">
+                        <img src="@($"{FileSettings.BooksImagesPath}/{book.BookCover}")"
+                             class="img-fluid"
+                             style="max-height: 100%; max-width: 100%; object-fit: contain;"
+                             alt="@book.Title" />
+                    </div>
+
+                    <div class="card-body d-flex flex-column">
+                        <h6 class="card-title fw-bold text-dark mb-2">@book.Title</h6>
+                        <div class="mb-2">
+                            <small class="text-muted">
+                                <i class="bi bi-person me-1"></i>@book.Author
+                            </small>
+                        </div>
+                        <div class="mb-2">
+                            <small class="text-muted">
+                                <i class="bi bi-tag me-1"></i>@book.Category
+                            </small>
+                        </div>
+
+                        <!-- Availability Status -->
+                        <div class="mb-3">
+                            <span class="badge @(book.BookCopies > 0 ? "bg-success" : "bg-danger") px-3 py-2">
+                                <i class="bi @(book.BookCopies > 0 ? "bi-check-circle" : "bi-x-circle") me-1"></i>
+                                @(book.BookCopies > 0 ? "Available" : "Not Available")
+                            </span>
+                        </div>
+
+                        <!-- Details Button -->
+                        <div class="mt-auto">
+                            <a asp-controller="Home" asp-action="Details" asp-route-id="@book.Id" class="btn btn-primary w-100">
+                                <i class="bi bi-info-circle me-2"></i>Details
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-6 mb-4">
-            <div class="card border-0 border-top border-4 border-warning shadow-sm h-100 card-hover">
-                <div class="card-body text-center p-4">
-                    <i class="bi bi-arrow-left-right text-warning fs-1 mb-3"></i>
-                    <h4 class="card-title fw-bold mb-3">Borrowings</h4>
-                    <p class="card-text mb-4">Track book borrowings, returns, and penalties.</p>
-                    <button class="btn btn-outline-warning rounded-pill px-4 btn-hover">View Borrowings</button>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6 mb-4">
-            <div class="card border-0 border-top border-4 border-danger shadow-sm h-100 card-hover">
-                <div class="card-body text-center p-4">
-                    <i class="bi bi-person-badge-fill text-danger fs-1 mb-3"></i>
-                    <h4 class="card-title fw-bold mb-3">Memberships</h4>
-                    <p class="card-text mb-4">Manage library memberships and members.</p>
-                    <button class="btn btn-outline-danger rounded-pill px-4 btn-hover">View Memberships</button>
-                </div>
-            </div>
-        </div>
+        }
     </div>
 </div>

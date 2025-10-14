@@ -1,4 +1,11 @@
-﻿<!DOCTYPE html>
+﻿@inject UserManager<ApplicationUser> _userManager
+
+@{
+    var user = await _userManager.GetUserAsync(User);
+    var role = await _userManager.GetRolesAsync(user!);
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <!-- Required meta tags -->
@@ -48,26 +55,29 @@
                     </form>
                 </div>
                 <ul class="navbar-nav navbar-nav-right">
-                    <li class="nav-item nav-profile dropdown">
-                        <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-                            <div class="nav-profile-img">
-                                <img src="~/Theme/assets/images/faces/face1.jpg" alt="image">
-                                <span class="availability-status online"></span>
-                            </div>
-                            <div class="nav-profile-text">
-                                <p class="mb-1 text-black">David Greymaax</p>
-                            </div>
-                        </a>
-                        <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
-                            <a class="dropdown-item" href="#">
-                                <i class="mdi mdi-cached me-2 text-success"></i> Activity Log
+                    @if (User.Identity!.IsAuthenticated)
+                    {
+                        <li class="nav-item nav-profile dropdown">
+                            <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                                <div class="nav-profile-img">
+                                    <img src="@($"{FileSettings.UsersImagesPath}/{user.ProfileImageURL}")" alt="image">
+                                    <span class="availability-status online"></span>
+                                </div>
+                                <div class="nav-profile-text">
+                                    <p class="mb-1 text-black">Welcome Admin: <strong>@($"{user.FirstName} {user.LastName}")</strong></p>
+                                </div>
                             </a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">
-                                <i class="mdi mdi-logout me-2 text-primary"></i> Signout
-                            </a>
-                        </div>
-                    </li>
+                            <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
+                                <a class="dropdown-item" href="#">
+                                    <i class="mdi mdi-cached me-2 text-success"></i> Activity Log
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="/Account/Logout">
+                                    <i class="mdi mdi-logout me-2 text-primary"></i> Signout
+                                </a>
+                            </div>
+                        </li>
+                    }
                     <li class="nav-item d-none d-lg-block full-screen-link">
                         <a class="nav-link">
                             <i class="mdi mdi-fullscreen" id="fullscreen-button"></i>
@@ -84,22 +94,25 @@
             <!-- partial:partials/_sidebar.html -->
             <nav class="sidebar sidebar-offcanvas" id="sidebar">
                 <ul class="nav">
-                    <li class="nav-item nav-profile">
-                        <a href="#" class="nav-link">
-                            <div class="nav-profile-image">
-                                <img src="~/Theme/assets/images/faces/face1.jpg" alt="profile" />
-                                <span class="login-status online"></span>
-                                <!--change to offline or busy as needed-->
-                            </div>
-                            <div class="nav-profile-text d-flex flex-column">
-                                <span class="font-weight-bold mb-2">David Grey. H</span>
-                                <span class="text-secondary text-small">Project Manager</span>
-                            </div>
-                            <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
-                        </a>
-                    </li>
+                    @if (User.Identity!.IsAuthenticated)
+                    {
+                        <li class="nav-item nav-profile">
+                            <a href="#" class="nav-link">
+                                <div class="nav-profile-image">
+                                    <img src="@($"{FileSettings.UsersImagesPath}/{user.ProfileImageURL}")" alt="profile" />
+                                    <span class="login-status online"></span>
+                                    <!--change to offline or busy as needed-->
+                                </div>
+                                <div class="nav-profile-text d-flex flex-column">
+                                    <span class="font-weight-bold mb-2">@($"{user.FirstName} {user.LastName}")</span>
+                                    <span class="text-secondary text-small">@role.FirstOrDefault()</span>
+                                </div>
+                                <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
+                            </a>
+                        </li>
+                    }
                     <li class="nav-item">
-                        <a class="nav-link" asp-controller="Home" asp-action="Index">
+                        <a class="nav-link" asp-controller="Admins" asp-action="Index">
                             <span class="menu-title">Dashboard</span>
                             <i class="bi bi-house menu-icon"></i>
                         </a>

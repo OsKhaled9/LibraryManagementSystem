@@ -1,0 +1,231 @@
+﻿@inject UserManager<ApplicationUser> _userManager
+
+@{
+    var user = await _userManager.GetUserAsync(User);
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Readify Library</title>
+
+    <!-- Layout styles -->
+    <link rel="stylesheet" href="~/Theme/assets/css/style.css">
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap-icons/font/bootstrap-icons.min.css" />
+    <!-- End layout styles -->
+
+    <link rel="shortcut icon" href="~/Theme/assets/images/favicon.png" />
+</head>
+<body class="d-flex flex-column min-vh-100 bg-light">
+    <!-- Header -->
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-purple shadow py-3 sticky-top">
+            <div class="container">
+                <!-- Logo -->
+                <a class="navbar-brand fw-bold fs-3 me-5" asp-controller="Home" asp-action="Index">
+                    <i class="bi bi-book-half me-2"></i>Readify
+                </a>
+
+                <!-- Mobile Toggle -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Navigation Links -->
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item mx-2">
+                            <a class="nav-link fw-medium px-3 py-2 rounded" asp-controller="Home" asp-action="Index">
+                                <i class="bi bi-house-door me-2"></i>Home
+                            </a>
+                        </li>
+                        <li class="nav-item mx-2">
+                            <a class="nav-link fw-medium px-3 py-2 rounded" asp-controller="Books" asp-action="Index">
+                                <i class="bi bi-book me-2"></i>Books
+                            </a>
+                        </li>
+                        <li class="nav-item mx-2">
+                            <a class="nav-link fw-medium px-3 py-2 rounded" href="#">
+                                <i class="bi bi-shield-check me-2"></i>Privacy Policy
+                            </a>
+                        </li>
+                    </ul>
+
+                    <!-- Auth Links -->
+                    <ul class="navbar-nav">
+                        @if (User.Identity!.IsAuthenticated)
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle fw-medium px-3 py-2 rounded" href="#" role="button" data-bs-toggle="dropdown">
+                                    @* <i class="bi bi-person-circle me-2"></i>@User.Identity.Name *@
+                                    <i class="bi bi-person-circle me-2"></i>Welcome @($"{user.FirstName} {user.LastName}") 
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end shadow border-0">
+                                    <li>
+                                        <a class="dropdown-item py-2" href="#">
+                                            <i class="bi bi-person me-2"></i>My Profile
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item py-2" href="#">
+                                            <i class="bi bi-bookmarks me-2"></i>My Books
+                                        </a>
+                                    </li>
+                                    <li><hr class="dropdown-divider my-2"></li>
+                                    <li>
+                                        <a asp-controller="Account" asp-action="Logout" class="dropdown-item py-2 text-danger">
+                                            <i class="bi bi-box-arrow-right me-2"></i>Logout
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item mx-1">
+                                <a class="nav-link fw-medium px-4 py-2 rounded border border-light border-opacity-25" asp-controller="Account" asp-action="Login">
+                                    <i class="bi bi-box-arrow-in-right me-2"></i>Login
+                                </a>
+                            </li>
+                            <li class="nav-item mx-1">
+                                <a class="nav-link fw-medium px-4 py-2 rounded bg-light text-dark" asp-controller="Account" asp-action="Register">
+                                    <i class="bi bi-person-plus me-2"></i>Register
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container my-4 flex-grow-1">
+        @RenderBody()
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white mt-auto">
+        <div class="container py-5">
+            <div class="row">
+                <!-- Company Info -->
+                <div class="col-lg-4 mb-4">
+                    <h5 class="fw-bold mb-3">
+                        <i class="bi bi-book-half me-2"></i>Readify Library
+                    </h5>
+                    <p class="text-light mb-3">
+                        Your gateway to knowledge and imagination. Discover thousands of books and expand your horizons.
+                    </p>
+                    <div class="d-flex gap-3">
+                        <a href="#" class="text-white fs-5">
+                            <i class="bi bi-facebook"></i>
+                        </a>
+                        <a href="#" class="text-white fs-5">
+                            <i class="bi bi-twitter"></i>
+                        </a>
+                        <a href="#" class="text-white fs-5">
+                            <i class="bi bi-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h6 class="fw-bold mb-3">Quick Links</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <a href="#" class="text-light text-decoration-none">
+                                <i class="bi bi-arrow-right me-1"></i>About Us
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#" class="text-light text-decoration-none">
+                                <i class="bi bi-arrow-right me-1"></i>Services
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#" class="text-light text-decoration-none">
+                                <i class="bi bi-arrow-right me-1"></i>Contact
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#" class="text-light text-decoration-none">
+                                <i class="bi bi-arrow-right me-1"></i>FAQ
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Categories -->
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h6 class="fw-bold mb-3">Categories</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <a href="#" class="text-light text-decoration-none">
+                                <i class="bi bi-bookmark me-1"></i>Fiction
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#" class="text-light text-decoration-none">
+                                <i class="bi bi-bookmark me-1"></i>Science
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#" class="text-light text-decoration-none">
+                                <i class="bi bi-bookmark me-1"></i>History
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#" class="text-light text-decoration-none">
+                                <i class="bi bi-bookmark me-1"></i>Technology
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Contact Info -->
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h6 class="fw-bold mb-3">Contact Us</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-3">
+                            <i class="bi bi-geo-alt me-2"></i>
+                            <span class="text-light">123 Library St, Knowledge City</span>
+                        </li>
+                        <li class="mb-3">
+                            <i class="bi bi-telephone me-2"></i>
+                            <span class="text-light">+1 234 567 890</span>
+                        </li>
+                        <li class="mb-3">
+                            <i class="bi bi-envelope me-2"></i>
+                            <span class="text-light">info@readify.com</span>
+                        </li>
+                        <li class="mb-3">
+                            <i class="bi bi-clock me-2"></i>
+                            <span class="text-light">Mon - Fri: 9AM - 6PM</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Copyright -->
+            <div class="row pt-4 border-top border-secondary">
+                <div class="col-12 text-center">
+                    <p class="mb-0 text-light">
+                        &copy; 2024 Readify Library. All rights reserved. |
+                        <a href="#" class="text-light text-decoration-none">Privacy Policy</a> |
+                        <a href="#" class="text-light text-decoration-none">Terms of Service</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

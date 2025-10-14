@@ -24,7 +24,7 @@ namespace Readify_Library.Models
         public int PublishYear { get; set; }
 
         [Required]
-        [Range(1, 1000, ErrorMessage = "Copies Must be Betwwen 1 - 1000")]
+        [Range(0, 1000, ErrorMessage = "Copies Must be Betwwen 0 - 1000")]
         [Display(Name = "Available Copies")]
         public int AvailableCopies { get; set; }
 

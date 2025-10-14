@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Readify_Library.Helpers;
 using Readify_Library.Settings;
@@ -9,6 +10,7 @@ using static System.Collections.Specialized.BitVector32;
 
 namespace Readify_Library.Controllers
 {
+    [Authorize(Roles = SystemRoles.Admin)]
     public class BooksController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -166,12 +168,12 @@ namespace Readify_Library.Controllers
             var book = await _unitOfWork.Books.GetByIdAsync(id);
             if (book is null) return NotFound();
 
-            if (book.AvailableCopies <= 1)
+            if (book.AvailableCopies <= 0)
             {
                 return Json(new
                 {
                     success = false,
-                    message = "Can not have less than 1 copy",
+                    message = "Can not have less than 0 copy",
                     newCopies = book.AvailableCopies
                 });
             }

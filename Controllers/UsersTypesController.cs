@@ -1,10 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Readify_Library.Models;
+using Readify_Library.Settings;
 using Readify_Library.UnitOfWork;
 using System.Threading.Tasks;
 
 namespace Readify_Library.Controllers
 {
+    [Authorize(Roles = SystemRoles.Admin)]
     public class UsersTypesController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
