@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace Readify_Library.Controllers
 {
+    //[Authorize(Roles = SystemRoles.Admin)]
     public class UsersController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -41,19 +43,23 @@ namespace Readify_Library.Controllers
             foreach (var user in usersList)
             {
                 var roles = await _userManager.GetRolesAsync(user);
-                userViewModel.Add(new UserFormViewModel()
+
+                if (roles.Contains(SystemRoles.User))
                 {
-                    UserId = user.Id,
-                    FirstName = user.FirstName,
-                    LastName = user.LastName,
-                    Address = user.Address,
-                    PhoneNumber = user.PhoneNumber,
-                    Email = user.Email,
-                    NumberOfBooksAvailable = user.UserType.ExtraBooks,
-                    IsActive = user.IsActive,
-                    RoleName = roles.FirstOrDefault(),
-                    UserType = user.UserType.TypeName.ToString(),
-                });
+                    userViewModel.Add(new UserFormViewModel()
+                    {
+                        UserId = user.Id,
+                        FirstName = user.FirstName,
+                        LastName = user.LastName,
+                        Address = user.Address,
+                        PhoneNumber = user.PhoneNumber,
+                        Email = user.Email,
+                        NumberOfBooksAvailable = user.UserType.ExtraBooks,
+                        IsActive = user.IsActive,
+                        RoleName = roles.FirstOrDefault(),
+                        UserType = user.UserType.TypeName.ToString(),
+                    });
+                }
             }
 
             return View(nameof(Index), userViewModel);

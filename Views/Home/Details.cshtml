@@ -1,0 +1,144 @@
+﻿@model Book
+@{
+    ViewData["Title"] = "Book Details";
+    Layout = "_HomeLayout";
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12">
+            <!-- Header with Back Button -->
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="text-primary fw-bold">
+                    <i class="bi bi-book me-2"></i>Book Details
+                </h2>
+                <div>
+                    <a asp-action="Index" class="btn btn-outline-primary me-2">
+                        <i class="bi bi-arrow-left me-1"></i>All Books
+                    </a>
+                    @* <a asp-controller="Home" asp-action="Index" class="btn btn-outline-secondary">
+                        <i class="bi bi-house me-1"></i>Back to Home
+                    </a> *@
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Book Cover -->
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm border-0">
+                <div class="card-body text-center p-4">
+                    <div class="bg-light rounded p-4 mb-3">
+                        <img src="@($"{FileSettings.BooksImagesPath}/{Model.ImageURL}")"
+                             class="img-fluid rounded"
+                             style="max-height: 300px; object-fit: contain;"
+                             alt="@Model.Title" />
+                    </div>
+
+                    <!-- Availability Status -->
+                    <div class="mb-3">
+                        <span class="badge @(Model.AvailableCopies > 0 ? "bg-success" : "bg-danger") fs-6 px-3 py-2">
+                            <i class="bi @(Model.AvailableCopies > 0 ? "bi-check-circle" : "bi-x-circle") me-1"></i>
+                            @(Model.AvailableCopies > 0 ? "Available" : "Not Available")
+                        </span>
+                    </div>
+
+                    <!-- Borrow Button -->
+                    @if (Model.AvailableCopies > 0)
+                    {
+                        <button class="btn btn-primary w-100 btn-lg">
+                            <i class="bi bi-cart-plus me-2"></i>Borrow This Book
+                        </button>
+                    }
+                    else
+                    {
+                        <button class="btn btn-outline-secondary w-100 btn-lg" disabled>
+                            <i class="bi bi-clock me-2"></i>Currently Unavailable
+                        </button>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Book Details -->
+        <div class="col-md-8">
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-4">
+                    <!-- Book Title -->
+                    <h1 class="text-primary fw-bold mb-4">@Model.Title</h1>
+
+                    <!-- Book Information Grid -->
+                    <div class="row g-4">
+                        <!-- Author -->
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center p-3 bg-light rounded">
+                                <i class="bi bi-person-fill text-primary fs-4 me-3"></i>
+                                <div>
+                                    <small class="text-muted d-block">Author</small>
+                                    <strong class="fs-5">@Model.Author</strong>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ISBN -->
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center p-3 bg-light rounded">
+                                <i class="bi bi-upc-scan text-primary fs-4 me-3"></i>
+                                <div>
+                                    <small class="text-muted d-block">ISBN</small>
+                                    <strong class="fs-5">@Model.ISBN</strong>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Publish Year -->
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center p-3 bg-light rounded">
+                                <i class="bi bi-calendar-event text-primary fs-4 me-3"></i>
+                                <div>
+                                    <small class="text-muted d-block">Publish Year</small>
+                                    <strong class="fs-5">@Model.PublishYear</strong>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Category -->
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center p-3 bg-light rounded">
+                                <i class="bi bi-tag-fill text-primary fs-4 me-3"></i>
+                                <div>
+                                    <small class="text-muted d-block">Category</small>
+                                    <strong class="fs-5">@Model.Category.Name</strong>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Available Copies -->
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center p-3 bg-light rounded">
+                                <i class="bi bi-stack text-primary fs-4 me-3"></i>
+                                <div>
+                                    <small class="text-muted d-block">Available Copies</small>
+                                    <strong class="fs-5">@Model.AvailableCopies</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Description -->
+                    <div class="mt-5">
+                        <h4 class="text-primary mb-3">
+                            <i class="bi bi-file-text me-2"></i>Description
+                        </h4>
+                        <div class="bg-light rounded p-4">
+                            <p class="mb-0 text-dark fs-5" style="line-height: 1.6;">
+                                @Model.Description
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
