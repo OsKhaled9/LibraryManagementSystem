@@ -13,6 +13,7 @@ namespace Readify_Library.UnitOfWork
         public IGenericRepository<Category> Categories { get; private set; }
         public IBookRepository Books { get; private set; }
         public IGenericRepository<UserType> UsersTypes { get; private set; }
+        public IBorrowingRepository Borrowings { get; private set; }
 
         public UnitOfWork(ApplicationDbContext context, IWebHostEnvironment webHostEnvironment)
         {
@@ -22,6 +23,7 @@ namespace Readify_Library.UnitOfWork
             Categories = new GenericRepository<Category>(_context);
             Books = new BookRepository(_context, _webHostEnvironment);
             UsersTypes = new GenericRepository<UserType>(_context);
+            Borrowings = new BorrowingRepository(_context);
         }
 
         public async Task SaveAsync()

@@ -1,0 +1,162 @@
+﻿@model Borrowing
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <!-- Header -->
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="text-primary fw-bold">
+                    <i class="bi bi-journal-text me-2"></i>Borrowing Details
+                </h2>
+            </div>
+
+            <!-- Details Card -->
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-primary text-white py-3">
+                    <h5 class="mb-0 fw-bold">
+                        <i class="bi bi-info-circle me-2"></i>Borrowing Information
+                    </h5>
+                </div>
+                <div class="card-body p-4">
+                    <div class="row">
+                        <!-- User Information -->
+                        <div class="col-md-6 mb-3">
+                            <div class="border-bottom pb-2 mb-3">
+                                <h6 class="text-primary fw-bold">
+                                    <i class="bi bi-person me-2"></i>User Information
+                                </h6>
+                            </div>
+                            <dl class="row mb-0">
+                                <dt class="col-sm-5 text-muted">Name</dt>
+                                <dd class="col-sm-7 fw-bold">@($"{Model.User.FirstName} {Model.User.LastName}")</dd>
+
+                                <dt class="col-sm-5 text-muted">User Type</dt>
+                                <dd class="col-sm-7">
+                                    <span class="badge bg-info text-dark">@Model.User.UserType.TypeName</span>
+                                </dd>
+                            </dl>
+                        </div>
+
+                        <!-- Book Information -->
+                        <div class="col-md-6 mb-3">
+                            <div class="border-bottom pb-2 mb-3">
+                                <h6 class="text-primary fw-bold">
+                                    <i class="bi bi-book me-2"></i>Book Information
+                                </h6>
+                            </div>
+                            <dl class="row mb-0">
+                                <dt class="col-sm-5 text-muted">Book Title</dt>
+                                <dd class="col-sm-7 fw-bold text-primary">@Model.Book.Title</dd>
+
+                                <dt class="col-sm-5 text-muted">Available Copies</dt>
+                                <dd class="col-sm-7">@Model.Book.AvailableCopies</dd>
+                            </dl>
+                        </div>
+                    </div>
+
+                    <!-- Borrowing Details -->
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <div class="border-bottom pb-2 mb-3">
+                                <h6 class="text-primary fw-bold">
+                                    <i class="bi bi-calendar-event me-2"></i>Borrowing Details
+                                </h6>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <dl class="row">
+                                        <dt class="col-sm-5 text-muted">Borrow Date</dt>
+                                        <dd class="col-sm-7">@Model.BorrowDate.ToString("yyyy-MM-dd")</dd>
+
+                                        <dt class="col-sm-5 text-muted">Due Date</dt>
+                                        <dd class="col-sm-7">@Model.DueDate.ToString("yyyy-MM-dd")</dd>
+                                    </dl>
+                                </div>
+                                <div class="col-md-6">
+                                    <dl class="row">
+                                        <dt class="col-sm-5 text-muted">Return Date</dt>
+                                        <dd class="col-sm-7">
+                                            @if (Model.ReturnDate.HasValue)
+                                            {
+                                                <span class="badge bg-success">@Model.ReturnDate.Value.ToString("yyyy-MM-dd")</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge bg-secondary">Not Returned</span>
+                                            }
+                                        </dd>
+
+                                        <dt class="col-sm-5 text-muted">Status</dt>
+                                        <dd class="col-sm-7">
+                                            @if (Model.Status == enBorrowStatus.Returned)
+                                            {
+                                                <span class="badge bg-success text-dark fs-6">
+                                                    <i class="bi bi-check-circle me-1"></i>Returned
+                                                </span>
+                                            }
+                                            else if (Model.DueDate < DateTime.Now)
+                                            {
+                                                <span class="badge bg-danger text-dark fs-6">
+                                                    <i class="bi bi-exclamation-triangle me-1"></i>Overdue
+                                                </span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge bg-warning text-dark fs-6">
+                                                    <i class="bi bi-clock me-1"></i>@Model.Status
+                                                </span>
+                                            }
+                                        </dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Fine Information -->
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <div class="border-bottom pb-2 mb-3">
+                                <h6 class="text-primary fw-bold">
+                                    <i class="bi bi-currency-dollar me-2"></i>Fine Information
+                                </h6>
+                            </div>
+                            <dl class="row">
+                                <dt class="col-sm-3 text-muted">Total Fine</dt>
+                                <dd class="col-sm-9">
+                                    @if (Model.PenaltyAmount > 0)
+                                    {
+                                        <span class="fw-bold text-danger fs-5">$@Model.PenaltyAmount.ToString("F2")</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-success fw-bold">No penalty</span>
+                                    }
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card Footer -->
+                <div class="card-footer bg-light py-3">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <a asp-controller="Users" asp-action="Details" asp-route-id="@Model.UserId"
+                           class="btn btn-outline-primary">
+                            <i class="bi bi-person me-1"></i>User Details
+                        </a>
+                        <div>
+                            <a asp-controller="Borrowings" asp-action="AllBorrowings" class="btn btn-outline-secondary me-2">
+                                <i class="bi bi-list me-1"></i>Back to List
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

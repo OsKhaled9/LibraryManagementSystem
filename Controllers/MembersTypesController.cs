@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 namespace Readify_Library.Controllers
 {
     [Authorize(Roles = SystemRoles.Admin)]
-    public class UsersTypesController : Controller
+    public class MembersTypesController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public UsersTypesController(IUnitOfWork unitOfWork)
+        public MembersTypesController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
@@ -50,7 +50,7 @@ namespace Readify_Library.Controllers
                 _unitOfWork.UsersTypes.Update(oldUserType);
                 await _unitOfWork.SaveAsync();
 
-                return RedirectToAction(nameof(Index), "UsersTypes");
+                return RedirectToAction(nameof(Index), "MembersTypes");
             }
 
             return View(nameof(Edit), userType);

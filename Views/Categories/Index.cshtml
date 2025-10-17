@@ -12,9 +12,15 @@
             <h2 class="text-primary">
                 🏷️ Categories
             </h2>
-            <a class="btn btn-primary" asp-controller="Categories" asp-action="Add">
-                <i class="bi bi-plus-circle me-2"></i>Add New Category
-            </a>
+            <div class="d-flex gap-2">
+                <a asp-controller="Categories" asp-action="Add" class="btn btn-primary px-4">
+                    <i class="bi bi-plus-circle me-1"></i> Add New Category
+                </a>
+
+                <a asp-controller="Admins" asp-action="Index" class="btn btn-outline-secondary px-4">
+                    <i class="bi bi-arrow-left-circle me-1"></i> Back to Home
+                </a>
+            </div>
         </div>
 
         <div class="card shadow-sm">

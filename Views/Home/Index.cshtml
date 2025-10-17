@@ -1,7 +1,7 @@
 ﻿@model List<DisplayAllBooksViewModel>
 
 @{
-    ViewData["Title"] = "Our Books Collection";
+    ViewData["Title"] = "Books";
     Layout = "_HomeLayout";
 }
 
@@ -23,66 +23,132 @@
                 <span class="input-group-text bg-primary text-white">
                     <i class="bi bi-search"></i>
                 </span>
-                <input type="text" class="form-control" placeholder="Search books by title, author, or category...">
+                <input type="text" id="searchInput" value="@ViewData["SearchTerm"]" class="form-control" placeholder="Search books by title, author, or category...">
             </div>
         </div>
         <div class="col-md-2 mb-2">
             <div class="d-flex gap-2">
-                <button class="btn btn-primary w-100">
+                <button class="btn btn-primary w-100" id="searchButton">
                     <i class="bi bi-search me-1"></i>Search
                 </button>
-                <button class="btn btn-outline-secondary">
-                    <i class="bi bi-arrow-clockwise"></i>
-                </button>
+                <a asp-controller="Home" asp-action="Index" class="btn btn-outline-secondary">
+                    <i class="bi bi-arrow-clockwise"></i> Reset
+                </a>
             </div>
         </div>
     </div>
     <hr />
 
     <!-- Books Grid -->
-    <div class="row g-3">
-        @foreach (var book in Model)
+    <div class="row g-3" id="booksContainer">
+        @if (Model is not null && Model.Any())
         {
-            <div class="col-md-6 col-lg-4 col-xl-3">
-                <div class="card h-100 shadow-sm border-0">
-                    <!-- Book Image -->
-                    <div class="bg-light d-flex align-items-center justify-content-center p-2" style="height: 200px;">
-                        <img src="@($"{FileSettings.BooksImagesPath}/{book.BookCover}")"
-                             class="img-fluid"
-                             style="max-height: 100%; max-width: 100%; object-fit: contain;"
-                             alt="@book.Title" />
+            @foreach (var book in Model)
+            {
+                <div class="col-md-6 col-lg-4 col-xl-3">
+                    <div class="card h-100 shadow-sm border-0">
+                        <!-- Book Image -->
+                        <div class="bg-light d-flex align-items-center justify-content-center p-2" style="height: 200px;">
+                            <img src="@($"{FileSettings.BooksImagesPath}/{book.BookCover}")"
+                                 class="img-fluid"
+                                 style="max-height: 100%; max-width: 100%; object-fit: contain;"
+                                 alt="@book.Title" />
+                        </div>
+
+                        <div class="card-body d-flex flex-column">
+                            <h6 class="card-title fw-bold text-dark mb-2">@book.Title</h6>
+                            <div class="mb-2">
+                                <small class="text-muted">
+                                    <i class="bi bi-person me-1"></i>@book.Author
+                                </small>
+                            </div>
+                            <div class="mb-2">
+                                <small class="text-muted">
+                                    <i class="bi bi-tag me-1"></i>@book.Category
+                                </small>
+                            </div>
+
+                            <!-- Availability Status -->
+                            <div class="mb-3">
+                                <span class="badge @(book.BookCopies > 0 ? "bg-success" : "bg-danger") px-3 py-2">
+                                    <i class="bi @(book.BookCopies > 0 ? "bi-check-circle" : "bi-x-circle") me-1"></i>
+                                    @(book.BookCopies > 0 ? "Available" : "Not Available")
+                                </span>
+                            </div>
+
+                            <!-- Details Button -->
+                            <div class="mt-auto">
+                                <a asp-controller="Home" asp-action="Details" asp-route-id="@book.Id" class="btn btn-primary w-100">
+                                    <i class="bi bi-info-circle me-2"></i>Details
+                                </a>
+                            </div>
+                        </div>
                     </div>
+                </div>
+            }
+        }
+        else
+        {
+            @* <div class="col-12 text-center py-5 my-3">
+                <div class="alert alert-info d-inline-block p-4 shadow">
+                    <div class="d-flex align-items-center" style="gap: 15px;">
+                        <h4 class="m-0 text-dark fw-bold">No Books found matching your search!</h4>
+                    </div>
+                </div>
+            </div> *@
 
-                    <div class="card-body d-flex flex-column">
-                        <h6 class="card-title fw-bold text-dark mb-2">@book.Title</h6>
-                        <div class="mb-2">
-                            <small class="text-muted">
-                                <i class="bi bi-person me-1"></i>@book.Author
-                            </small>
-                        </div>
-                        <div class="mb-2">
-                            <small class="text-muted">
-                                <i class="bi bi-tag me-1"></i>@book.Category
-                            </small>
-                        </div>
-
-                        <!-- Availability Status -->
-                        <div class="mb-3">
-                            <span class="badge @(book.BookCopies > 0 ? "bg-success" : "bg-danger") px-3 py-2">
-                                <i class="bi @(book.BookCopies > 0 ? "bi-check-circle" : "bi-x-circle") me-1"></i>
-                                @(book.BookCopies > 0 ? "Available" : "Not Available")
-                            </span>
-                        </div>
-
-                        <!-- Details Button -->
-                        <div class="mt-auto">
-                            <a asp-controller="Home" asp-action="Details" asp-route-id="@book.Id" class="btn btn-primary w-100">
-                                <i class="bi bi-info-circle me-2"></i>Details
-                            </a>
-                        </div>
+            <div class="row mb-4">
+                <div class="col-12 text-center py-5 my-3">
+                    <div class="px-4 py-3 bg-light text-dark fw-bold rounded-3 shadow-sm"
+                         style="letter-spacing: 4px; font-size: 1.4rem; text-transform: uppercase; border: 2px dashed purple;">
+                        <i class="bi bi-info-circle"></i> No Books found matching your search!
                     </div>
                 </div>
             </div>
         }
     </div>
 </div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+
+            // Ajax Search
+            $("#searchButton").click(function () {
+                const searchTerm = $("#searchInput").val();
+
+                if (searchTerm === "")
+                {
+                    bootbox.alert({
+                        title: "Warning",
+                        message: "⚠️  Please, Enter Search Term!.",
+                        className: 'bootbox-alert-warning'
+                    });
+                    // alert("⚠️  Please, Enter Search Term!.");
+                    return;
+                }
+
+                $.ajax({
+                    url: "@Url.Action("Index", "Home")",
+                    type: "GET",
+                    data: {
+                        searchTerm: searchTerm
+                    },
+                    success: function (response) {
+                         const bookssHtml = $(response).find("#booksContainer").html();
+                        $("#booksContainer").html(bookssHtml);
+                    },
+                    error: function () {
+
+                         bootbox.alert({
+                             title: "Error",
+                             message: "❌ Error occurred!.",
+                             className: 'bootbox-alert-danger'
+                    });
+                        // alert("❌ Error occurred!.");
+                    }
+                });
+            });
+        });
+    </script>
+}

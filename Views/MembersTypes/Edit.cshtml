@@ -1,7 +1,7 @@
 ﻿@model UserType
 
 @{
-    ViewData["Title"] = "Edit Tier";
+    ViewData["Title"] = "Edit Member Type";
 }
 
 <div class="container mt-4">
@@ -10,11 +10,11 @@
             <div class="card">
                 <div class="card-header bg-primary text-white">
                     <h4 class="mb-0 text-center">
-                        <i class="bi bi-pencil-square me-2"></i> Edit User Type
+                        <i class="bi bi-pencil-square me-2"></i> Edit Member Type
                     </h4>
                 </div>
                 <div class="card-body">
-                    <form asp-controller="UsersTypes" asp-action="Edit" method="post">
+                    <form asp-controller="MembersTypes" asp-action="Edit" method="post">
                         <input type="hidden" asp-for="Id" />
 
                         <div class="row mb-4">
@@ -53,7 +53,7 @@
                                     <button type="submit" class="btn btn-primary">
                                         <i class="bi bi-check-circle me-2"></i> Save
                                     </button>
-                                    <a type="button" class="btn btn-outline-secondary" asp-controller="UsersTypes" asp-action="Index">
+                                    <a type="button" class="btn btn-outline-secondary" asp-controller="MembersTypes" asp-action="Index">
                                         <i class="bi bi-x-circle me-2"></i> Cancel
                                     </a>
                                 </div>

@@ -2,11 +2,11 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Readify_Library.Helpers;
+using Readify_Library.Models;
 using Readify_Library.Settings;
 using Readify_Library.UnitOfWork;
 using Readify_Library.ViewModels;
 using System.Threading.Tasks;
-using static System.Collections.Specialized.BitVector32;
 
 namespace Readify_Library.Controllers
 {
@@ -40,7 +40,6 @@ namespace Readify_Library.Controllers
             {
                 Categories = await _unitOfWork.Categories.GetAllAsync()
             };
-            //ViewBag.Categories = await _unitOfWork.Categories.GetAllAsync();
             return View(nameof(Add), bookViewModel);
         }
 
@@ -123,11 +122,21 @@ namespace Readify_Library.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
-            var book = await _unitOfWork.Books.GetByIdAsync(id);
+            var book = await _unitOfWork.Books.GetOneRecordWithIncludesAsync(b => b.Id == id, new[] { "Borrowings" } );
             if (book is null)
                 return Json(new { success = false, message = "Book Not Found" });
 
             // Condtion (When there are a Borowings for this book) in Future
+            bool hasActiveBorrowings = book.Borrowings.Any(b => b.Status != enBorrowStatus.Returned);
+
+            if (hasActiveBorrowings)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = "Cannot delete book! There are active borrowings for this book."
+                });
+            }
 
             if (!string.IsNullOrEmpty(book.ImageURL))
                 Utilities.DeleteFile(book.ImageURL, _BookImagePath);
