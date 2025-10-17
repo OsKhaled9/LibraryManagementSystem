@@ -12,7 +12,7 @@
             <a asp-controller="Users" asp-action="Add" class="btn btn-primary px-4">
                 <i class="bi bi-plus-circle me-1"></i> Add New User
             </a>
-            <a asp-controller="Home" asp-action="Index" class="btn btn-secondary px-4">
+            <a asp-controller="Admins" asp-action="Index" class="btn btn-outline-secondary px-4">
                 <i class="bi bi-arrow-left-circle me-1"></i> Back to Home
             </a>
         </div>
@@ -116,6 +116,8 @@
     <script>
         $(document).ready(function(){
             bootBoxDelete();
+
+            $('table').DataTable();
         });
     </script>
 }

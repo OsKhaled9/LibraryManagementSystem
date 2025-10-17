@@ -23,6 +23,9 @@
     <link rel="stylesheet" href="~/Theme/assets/vendors/font-awesome/css/font-awesome.min.css" />
     <link rel="stylesheet" href="~/Theme/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css">
     <!-- End plugin css for this page -->
+
+    <link rel="stylesheet" href="~/lib/datatables/css/datatables.bootstrap4.min.css" />
+
     <!-- Layout styles -->
     <link rel="stylesheet" href="~/Theme/assets/css/style.css">
     <link rel="stylesheet" href="~/css/site.css" />
@@ -140,9 +143,16 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" asp-controller="UsersTypes" asp-action="Index">
-                            <span class="menu-title">Users Types</span>
+                        <a class="nav-link" asp-controller="MembersTypes" asp-action="Index">
+                            <span class="menu-title">Members Types</span>
                             <i class="bi bi-person menu-icon"></i>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Borrowings" asp-action="AllBorrowings">
+                            <span class="menu-title">Borrowings</span>
+                            <i class="bi bi-arrow-left-right menu-icon"></i>
                         </a>
                     </li>
                 </ul>
@@ -184,6 +194,10 @@
     <script src="~/Theme/assets/js/dashboard.js"></script>
 
     <script src="~/lib/bootbox.js/bootbox.min.js"></script>
+
+    <script src="~/lib/datatables/js/jquery.datatables.min.js"></script>
+    <script src="~/lib/datatables/js/datatables.bootstrap4.min.js"></script>
+
     <script src="~/js/site.js"></script>
     <!-- End custom js for this page -->
     @await RenderSectionAsync("Scripts", required: false)

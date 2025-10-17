@@ -1,5 +1,7 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model StatisticsViewModel
+
+@{
+    ViewData["Title"] = "Dashboard";
 }
 
 <!-- Header -->
@@ -7,7 +9,7 @@
     <div class="container">
         <div class="row align-items-center">
             <div class="col-md-8">
-                <h1 class="display-5 fw-bold mb-2">Welcome to the One Reader Library</h1>
+                <h1 class="display-5 fw-bold mb-2">Welcome to the One Readify Library</h1>
                 <p class="lead mb-0">Manage your books, categories, and memberships with ease.</p>
             </div>
             <div class="col-md-4 text-md-end">
@@ -29,7 +31,7 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <h4 class="card-title">Total Users</h4>
-                            <h2 class="mb-0">1,245</h2>
+                            <h2 class="mb-0">@Model.UsersCount</h2>
                             <p class="mb-0">+12% from last month</p>
                         </div>
                         <i class="bi bi-people-fill fs-1"></i>
@@ -43,7 +45,7 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <h4 class="card-title">Total Books</h4>
-                            <h2 class="mb-0">8,763</h2>
+                            <h2 class="mb-0">@Model.BooksCount</h2>
                             <p class="mb-0">+5% from last month</p>
                         </div>
                         <i class="bi bi-book-half fs-1"></i>
@@ -57,7 +59,7 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <h4 class="card-title">Active Borrowings</h4>
-                            <h2 class="mb-0">342</h2>
+                            <h2 class="mb-0">@Model.BorrowingsCount</h2>
                             <p class="mb-0">-3% from last week</p>
                         </div>
                         <i class="bi bi-clock-history fs-1"></i>
@@ -75,7 +77,7 @@
                     <i class="bi bi-people-fill text-purple fs-1 mb-3"></i>
                     <h4 class="card-title fw-bold mb-3">Users</h4>
                     <p class="card-text mb-4">Add, update and manage all library users.</p>
-                    <button class="btn btn-outline-primary rounded-pill px-4 btn-hover">View Users</button>
+                    <a asp-controller="Users" asp-action="Index" class="btn btn-outline-primary rounded-pill px-4 btn-hover">View Users</a>
                 </div>
             </div>
         </div>
@@ -85,7 +87,7 @@
                     <i class="bi bi-book-half text-success fs-1 mb-3"></i>
                     <h4 class="card-title fw-bold mb-3">Books</h4>
                     <p class="card-text mb-4">Browse, add, and manage library books.</p>
-                    <button class="btn btn-outline-success rounded-pill px-4 btn-hover">View Books</button>
+                    <a asp-controller="Books" asp-action="Index" class="btn btn-outline-success rounded-pill px-4 btn-hover">View Books</a>
                 </div>
             </div>
         </div>
@@ -95,7 +97,7 @@
                     <i class="bi bi-folder-fill text-info fs-1 mb-3"></i>
                     <h4 class="card-title fw-bold mb-3">Categories</h4>
                     <p class="card-text mb-4">Organize books into categories for easy access.</p>
-                    <button class="btn btn-outline-info rounded-pill px-4 btn-hover">View Categories</button>
+                    <a asp-controller="Categories" asp-action="Index" class="btn btn-outline-info rounded-pill px-4 btn-hover">View Categories</a>
                 </div>
             </div>
         </div>
@@ -105,7 +107,7 @@
                     <i class="bi bi-arrow-left-right text-warning fs-1 mb-3"></i>
                     <h4 class="card-title fw-bold mb-3">Borrowings</h4>
                     <p class="card-text mb-4">Track book borrowings, returns, and penalties.</p>
-                    <button class="btn btn-outline-warning rounded-pill px-4 btn-hover">View Borrowings</button>
+                    <a asp-controller="Borrowings" asp-action="AllBorrowings" class="btn btn-outline-warning rounded-pill px-4 btn-hover">View Borrowings</a>
                 </div>
             </div>
         </div>
@@ -113,9 +115,9 @@
             <div class="card border-0 border-top border-4 border-danger shadow-sm h-100 card-hover">
                 <div class="card-body text-center p-4">
                     <i class="bi bi-person-badge-fill text-danger fs-1 mb-3"></i>
-                    <h4 class="card-title fw-bold mb-3">Memberships</h4>
-                    <p class="card-text mb-4">Manage library memberships and members.</p>
-                    <button class="btn btn-outline-danger rounded-pill px-4 btn-hover">View Memberships</button>
+                    <h4 class="card-title fw-bold mb-3">Users Types</h4>
+                    <p class="card-text mb-4">Manage library User Types and members.</p>
+                    <a asp-controller="MembersTypes" asp-action="Index" class="btn btn-outline-danger rounded-pill px-4 btn-hover">View Users Types</a>
                 </div>
             </div>
         </div>

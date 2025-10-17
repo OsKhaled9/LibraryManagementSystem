@@ -1,0 +1,192 @@
+﻿@{
+    ViewData["Title"] = "About Us";
+    Layout = "_HomeLayout";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <!-- Header -->
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="text-primary fw-bold">
+                    <i class="bi bi-info-circle me-2"></i>About Us
+                </h2>
+                <a asp-controller="Home" asp-action="Index" class="btn btn-outline-primary">
+                    <i class="bi bi-arrow-left me-1"></i>Back to Home
+                </a>
+            </div>
+
+            <!-- About Us Card -->
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-primary text-white py-3">
+                    <h5 class="mb-0 fw-bold">
+                        <i class="bi bi-building me-2"></i>Welcome to Readify Library
+                    </h5>
+                </div>
+                <div class="card-body p-4">
+                    <!-- Introduction -->
+                    <div class="text-center mb-5">
+                        <i class="bi bi-book text-primary display-4"></i>
+                        <p class="lead text-muted mt-3">
+                            Learn more about our mission, vision, and values that drive our library management system.
+                        </p>
+                    </div>
+
+                    <!-- Vision & Mission -->
+                    <div class="row mb-4">
+                        <div class="col-md-6 mb-4">
+                            <div class="card h-100 border-0 shadow-sm">
+                                <div class="card-body text-center p-4">
+                                    <i class="bi bi-eye text-primary fs-1 mb-3"></i>
+                                    <h5 class="text-primary mb-3">Vision</h5>
+                                    <p class="text-muted">
+                                        To be the leading digital platform for knowledge and books management,
+                                        providing seamless access to educational resources.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <div class="card h-100 border-0 shadow-sm">
+                                <div class="card-body text-center p-4">
+                                    <i class="bi bi-bullseye text-success fs-1 mb-3"></i>
+                                    <h5 class="text-success mb-3">Mission</h5>
+                                    <p class="text-muted">
+                                        Provide an easy and organized way for readers and administrators
+                                        to manage library resources efficiently and effectively.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Our Values -->
+                    <div class="mb-4">
+                        <h5 class="text-primary mb-4 text-center">
+                            <i class="bi bi-stars me-2"></i>Our Values
+                        </h5>
+                        <div class="row g-3">
+                            <div class="col-md-3">
+                                <div class="card border-0 bg-light h-100">
+                                    <div class="card-body text-center p-3">
+                                        <i class="bi bi-award text-warning fs-3"></i>
+                                        <h6 class="mt-2">Quality</h6>
+                                        <p class="small text-muted mb-0">Excellence in service delivery</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card border-0 bg-light h-100">
+                                    <div class="card-body text-center p-3">
+                                        <i class="bi bi-eye text-info fs-3"></i>
+                                        <h6 class="mt-2">Transparency</h6>
+                                        <p class="small text-muted mb-0">Open and honest operations</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card border-0 bg-light h-100">
+                                    <div class="card-body text-center p-3">
+                                        <i class="bi bi-people text-success fs-3"></i>
+                                        <h6 class="mt-2">Teamwork</h6>
+                                        <p class="small text-muted mb-0">Collaborative approach</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card border-0 bg-light h-100">
+                                    <div class="card-body text-center p-3">
+                                        <i class="bi bi-lightbulb text-primary fs-3"></i>
+                                        <h6 class="mt-2">Innovation</h6>
+                                        <p class="small text-muted mb-0">Continuous improvement</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Statistics -->
+                    <div class="mb-4">
+                        <h5 class="text-primary mb-4 text-center">
+                            <i class="bi bi-graph-up me-2"></i>Library Statistics
+                        </h5>
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <div class="card border-0 bg-primary text-white">
+                                    <div class="card-body text-center p-4">
+                                        <i class="bi bi-book fs-1 mb-2"></i>
+                                        <h3>@ViewBag.TotalBooks+</h3>
+                                        <p class="mb-0">Books Available</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card border-0 bg-success text-white">
+                                    <div class="card-body text-center p-4">
+                                        <i class="bi bi-people fs-1 mb-2"></i>
+                                        <h3>@ViewBag.TotalUsers+</h3>
+                                        <p class="mb-0">Registered Users</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card border-0 bg-info text-white">
+                                    <div class="card-body text-center p-4">
+                                        <i class="bi bi-tags fs-1 mb-2"></i>
+                                        <h3>@ViewBag.TotalCategories+</h3>
+                                        <p class="mb-0">Categories</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Development Team -->
+                    <div class="mb-4">
+                        <h5 class="text-primary mb-4 text-center">
+                            <i class="bi bi-code-slash me-2"></i>Development Team
+                        </h5>
+                        <div class="row justify-content-center">
+                            <div class="col-md-6 col-lg-4">
+                                <div class="card border-0 text-center">
+                                    <div class="card-body">
+                                        @if (!string.IsNullOrEmpty(ViewBag.DeveloperImage))
+                                        {
+                                            <img src="@($"{FileSettings.UsersImagesPath}/{ViewBag.DeveloperImage}")"
+                                                 alt="Developer"
+                                                 class="rounded-circle mb-3"
+                                                 style="width: 120px; height: 120px; object-fit: cover;">
+                                        }
+                                        else
+                                        {
+                                            <div class="bg-light rounded-circle mx-auto d-flex align-items-center justify-content-center mb-3"
+                                                 style="width: 120px; height: 120px;">
+                                                <i class="bi bi-person text-muted fs-1"></i>
+                                            </div>
+                                        }
+                                        <h6 class="mb-1">Osama Khaled</h6>
+                                        <small class="text-muted">Back End Developer</small>
+                                        <div class="mt-2">
+                                            <small class="text-primary">Readify Library System</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact Information -->
+                    <div class="alert alert-info">
+                        <div class="d-flex align-items-center">
+                            <i class="bi bi-envelope-fill me-3 fs-5"></i>
+                            <div>
+                                <strong>Contact Us</strong>
+                                <p class="mb-0">Email: support@readify.com | Phone: +967 771166214</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

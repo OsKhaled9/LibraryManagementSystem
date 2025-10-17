@@ -1,0 +1,190 @@
+﻿@{
+    ViewData["Title"] = "Privacy Policy";
+    Layout = "_HomeLayout";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <!-- Header -->
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="text-primary fw-bold">
+                    <i class="bi bi-shield-lock me-2"></i>Privacy Policy
+                </h2>
+                <a asp-controller="Home" asp-action="Index" class="btn btn-outline-primary">
+                    <i class="bi bi-arrow-left me-1"></i>Back to Home
+                </a>
+            </div>
+
+            <!-- Privacy Policy Card -->
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-primary text-white py-3">
+                    <h5 class="mb-0 fw-bold">
+                        <i class="bi bi-info-circle me-2"></i>Your Privacy Matters
+                    </h5>
+                </div>
+                <div class="card-body p-4">
+                    <!-- Introduction -->
+                    <div class="text-center mb-5">
+                        <i class="bi bi-shield-check text-primary display-4"></i>
+                        <p class="lead text-muted mt-3">
+                            We are committed to protecting your privacy and ensuring the security of your personal information.
+                        </p>
+                    </div>
+
+                    <!-- Information Collection -->
+                    <div class="mb-4">
+                        <h5 class="text-primary mb-3">
+                            <i class="bi bi-collection me-2"></i>Information We Collect
+                        </h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-start p-3 bg-light rounded mb-3">
+                                    <i class="bi bi-person text-primary fs-5 me-3 mt-1"></i>
+                                    <div>
+                                        <strong>Personal Information</strong>
+                                        <p class="mb-0 text-muted small">Name, email, phone number, and membership details</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-start p-3 bg-light rounded mb-3">
+                                    <i class="bi bi-book text-primary fs-5 me-3 mt-1"></i>
+                                    <div>
+                                        <strong>Borrowing History</strong>
+                                        <p class="mb-0 text-muted small">Books borrowed, due dates, and return records</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- How We Use Information -->
+                    <div class="mb-4">
+                        <h5 class="text-primary mb-3">
+                            <i class="bi bi-gear me-2"></i>How We Use Your Information
+                        </h5>
+                        <div class="bg-light rounded p-4">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <div class="d-flex align-items-center">
+                                        <i class="bi bi-check-circle text-success me-2"></i>
+                                        <span>Manage library memberships</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="d-flex align-items-center">
+                                        <i class="bi bi-check-circle text-success me-2"></i>
+                                        <span>Track book borrowings and returns</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="d-flex align-items-center">
+                                        <i class="bi bi-check-circle text-success me-2"></i>
+                                        <span>Send important notifications</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="d-flex align-items-center">
+                                        <i class="bi bi-check-circle text-success me-2"></i>
+                                        <span>Improve our services</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="alert alert-success mt-3 mb-0">
+                                <i class="bi bi-shield-exclamation me-2"></i>
+                                <strong>We do not sell or share your personal information with third parties.</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Data Protection -->
+                    <div class="mb-4">
+                        <h5 class="text-primary mb-3">
+                            <i class="bi bi-lock me-2"></i>Data Protection
+                        </h5>
+                        <div class="row">
+                            <div class="col-md-4 text-center mb-3">
+                                <div class="p-3 border rounded">
+                                    <i class="bi bi-hash text-primary fs-2"></i>
+                                    <h6 class="mt-2">Secure Storage</h6>
+                                    <p class="small text-muted mb-0">Your data is stored securely with encryption</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4 text-center mb-3">
+                                <div class="p-3 border rounded">
+                                    <i class="bi bi-eye-slash text-primary fs-2"></i>
+                                    <h6 class="mt-2">Limited Access</h6>
+                                    <p class="small text-muted mb-0">Only authorized staff can access your information</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4 text-center mb-3">
+                                <div class="p-3 border rounded">
+                                    <i class="bi bi-clock-history text-primary fs-2"></i>
+                                    <h6 class="mt-2">Data Retention</h6>
+                                    <p class="small text-muted mb-0">We keep data only as long as necessary</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Your Rights -->
+                    <div class="mb-4">
+                        <h5 class="text-primary mb-3">
+                            <i class="bi bi-person-check me-2"></i>Your Rights
+                        </h5>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-center p-3 bg-light rounded">
+                                    <i class="bi bi-eye text-primary me-3"></i>
+                                    <div>
+                                        <strong>Right to Access</strong>
+                                        <p class="mb-0 text-muted small">View your personal information</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-center p-3 bg-light rounded">
+                                    <i class="bi bi-pencil-square text-primary me-3"></i>
+                                    <div>
+                                        <strong>Right to Update</strong>
+                                        <p class="mb-0 text-muted small">Correct your personal details</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-center p-3 bg-light rounded">
+                                    <i class="bi bi-trash text-primary me-3"></i>
+                                    <div>
+                                        <strong>Right to Delete</strong>
+                                        <p class="mb-0 text-muted small">Request data deletion</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-center p-3 bg-light rounded">
+                                    <i class="bi bi-download text-primary me-3"></i>
+                                    <div>
+                                        <strong>Data Portability</strong>
+                                        <p class="mb-0 text-muted small">Export your data</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact Information -->
+                    <div class="alert alert-info">
+                        <div class="d-flex align-items-center">
+                            <i class="bi bi-envelope-fill me-3 fs-5"></i>
+                            <div>
+                                <strong>Questions?</strong>
+                                <p class="mb-0">If you have any questions about our privacy practices, please contact our support team.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -12,21 +12,19 @@ using System.Threading.Tasks;
 
 namespace Readify_Library.Controllers
 {
-    //[Authorize(Roles = SystemRoles.Admin)]
+    [Authorize(Roles = SystemRoles.Admin)]
     public class UsersController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly string _UserImagePath;
 
 
-        public UsersController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager, IWebHostEnvironment webHostEnvironment, IUnitOfWork unitOfWork)
+        public UsersController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IWebHostEnvironment webHostEnvironment, IUnitOfWork unitOfWork)
         {
             _userManager = userManager;
-            _signInManager = signInManager;
             _roleManager = roleManager;
             _webHostEnvironment = webHostEnvironment;
             _UserImagePath = $"{_webHostEnvironment.WebRootPath}{FileSettings.UsersImagesPath}";
@@ -109,6 +107,7 @@ namespace Readify_Library.Controllers
                     IsActive = userViewModel.IsActive,
                     UserTypeId = userViewModel.UserTypeId,
                     ProfileImageURL = UserProfileImage.FileName,
+                    NumberOfBooksAvailable = await GetExtraBooksByUserTypeId(userViewModel.UserTypeId),
                 };
 
                 var result = await _userManager.CreateAsync(user, userViewModel.Password);
@@ -205,6 +204,7 @@ namespace Readify_Library.Controllers
                 user.DateOfBirth = editUserViewModel.DateOfBirth;
                 user.UserTypeId = editUserViewModel.UserTypeId;
                 user.IsActive = editUserViewModel.IsActive;
+                user.NumberOfBooksAvailable = await GetExtraBooksByUserTypeId(editUserViewModel.UserTypeId);
 
                 if (hasNewCover)
                 {
@@ -283,6 +283,7 @@ namespace Readify_Library.Controllers
                 TypeOfUser = user.UserType.TypeName.ToString(),
                 ProfileImageUrl = user.ProfileImageURL,
                 TotalBorrowedBooks = user.Borrowings.Count(),
+                BorrowedBooks = user.Borrowings.ToList()
             };
 
             return View(nameof(Details), userDetailsViewModel);
@@ -337,6 +338,7 @@ namespace Readify_Library.Controllers
             });
         }
         #endregion
+
         private async Task<List<SelectListItem>> GetRolesAsync()
         {
             return await _roleManager.Roles.Where(u => u.Name == SystemRoles.User)
@@ -347,5 +349,11 @@ namespace Readify_Library.Controllers
                 }).ToListAsync();
         }
 
+
+        private async Task<int> GetExtraBooksByUserTypeId(int userTypeId)
+        {
+            var userType = await _unitOfWork.UsersTypes.GetByIdAsync(userTypeId);
+            return userType?.ExtraBooks ?? 0;
+        }
     }
 }

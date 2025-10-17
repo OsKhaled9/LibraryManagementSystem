@@ -27,6 +27,7 @@ namespace Readify_Library.Controllers
             _UserImagePath = $"{_webHostEnvironment.WebRootPath}{FileSettings.UsersImagesPath}";
         }
 
+        #region Login Page
         [HttpGet]
         public IActionResult Login()
         {
@@ -74,7 +75,9 @@ namespace Readify_Library.Controllers
 
             return View(nameof(Login), loginViewModel);
         }
+        #endregion
 
+        #region Register Page
         [HttpGet]
         public IActionResult Register()
         {
@@ -133,11 +136,14 @@ namespace Readify_Library.Controllers
 
             return View(nameof(Register), registerViewModel);
         }
+        #endregion
 
+        #region Log Out
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
             return RedirectToAction(nameof(Index), "Home");
         }
+        #endregion
     }
 }

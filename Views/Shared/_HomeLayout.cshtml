@@ -11,6 +11,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Readify Library</title>
 
+    <link rel="stylesheet" href="~/lib/datatables/css/datatables.bootstrap4.min.css" />
+
     <!-- Layout styles -->
     <link rel="stylesheet" href="~/Theme/assets/css/style.css">
     <link rel="stylesheet" href="~/css/site.css" />
@@ -39,17 +41,17 @@
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item mx-2">
                             <a class="nav-link fw-medium px-3 py-2 rounded" asp-controller="Home" asp-action="Index">
-                                <i class="bi bi-house-door me-2"></i>Home
-                            </a>
-                        </li>
-                        <li class="nav-item mx-2">
-                            <a class="nav-link fw-medium px-3 py-2 rounded" asp-controller="Books" asp-action="Index">
                                 <i class="bi bi-book me-2"></i>Books
                             </a>
                         </li>
                         <li class="nav-item mx-2">
-                            <a class="nav-link fw-medium px-3 py-2 rounded" href="#">
-                                <i class="bi bi-shield-check me-2"></i>Privacy Policy
+                            <a class="nav-link fw-medium px-3 py-2 rounded" asp-controller="Home" asp-action="AboutUs">
+                                <i class="bi bi-info-circle me-2"></i>About Us
+                            </a>
+                        </li>
+                        <li class="nav-item mx-2">
+                            <a class="nav-link fw-medium px-3 py-2 rounded" asp-controller="Home" asp-action="PrivacyPolicy">
+                                <i class="bi bi-shield-lock me-2"></i>Privacy Policy
                             </a>
                         </li>
                     </ul>
@@ -61,7 +63,7 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle fw-medium px-3 py-2 rounded" href="#" role="button" data-bs-toggle="dropdown">
                                     @* <i class="bi bi-person-circle me-2"></i>@User.Identity.Name *@
-                                    <i class="bi bi-person-circle me-2"></i>Welcome @($"{user.FirstName} {user.LastName}") 
+                                    <i class="bi bi-person-circle me-2"></i>Welcome @($"{user.FirstName} {user.LastName}")
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end shadow border-0">
                                     <li>
@@ -70,8 +72,8 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item py-2" href="#">
-                                            <i class="bi bi-bookmarks me-2"></i>My Books
+                                        <a class="dropdown-item py-2" asp-controller="Borrowings" asp-action="AllUserBorrowings">
+                                            <i class="bi bi-arrow-left-right me-2"></i>My Borrowings
                                         </a>
                                     </li>
                                     <li><hr class="dropdown-divider my-2"></li>
@@ -225,6 +227,11 @@
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/bootbox.js/bootbox.min.js"></script>
+
+    <script src="~/lib/datatables/js/jquery.datatables.min.js"></script>
+    <script src="~/lib/datatables/js/datatables.bootstrap4.min.js"></script>
+
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>

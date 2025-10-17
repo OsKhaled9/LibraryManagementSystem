@@ -21,10 +21,9 @@ namespace Readify_Library.Models
         public DateTime DueDate { get; set; }
 
         [DataType(DataType.DateTime)]
-        public DateTime ReturnDate { get; set; }
+        public DateTime? ReturnDate { get; set; }
 
-        [MinLength(1)]
-        [MaxLength(1000)]
+        [Range(1, 1000, ErrorMessage = "Penalty Amount Must be Betwwen 1 - 1000")]
         public decimal PenaltyAmount { get; set; }
 
         public enBorrowStatus Status { get; set; }
