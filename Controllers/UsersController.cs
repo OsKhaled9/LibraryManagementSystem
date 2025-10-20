@@ -34,13 +34,16 @@ namespace Readify_Library.Controllers
         #region All Users
         public async Task<IActionResult> Index()
         {
-            var usersList = await _userManager.Users.Include(u => u.UserType).ToListAsync();
+            var usersList = await _userManager.Users.Include(u => u.UserType).Include(u => u.Borrowings).ToListAsync();
 
             var userViewModel = new List<UserFormViewModel>();
 
             foreach (var user in usersList)
             {
                 var roles = await _userManager.GetRolesAsync(user);
+
+                var CurrentuserBorrowings = user.Borrowings.Count(b => b.Status != enBorrowStatus.Returned);
+                var availableBooksForUser = user.UserType.ExtraBooks - CurrentuserBorrowings;
 
                 if (roles.Contains(SystemRoles.User))
                 {
@@ -52,7 +55,7 @@ namespace Readify_Library.Controllers
                         Address = user.Address,
                         PhoneNumber = user.PhoneNumber,
                         Email = user.Email,
-                        NumberOfBooksAvailable = user.UserType.ExtraBooks,
+                        NumberOfBooksAvailable = availableBooksForUser,
                         IsActive = user.IsActive,
                         RoleName = roles.FirstOrDefault(),
                         UserType = user.UserType.TypeName.ToString(),

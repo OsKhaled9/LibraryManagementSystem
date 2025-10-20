@@ -97,7 +97,7 @@ namespace Readify_Library.Controllers
                     return View(nameof(AddBorrow), addBorrowingForAdmin);
                 }
 
-                if (user.UserType.ExtraBooks <= 0)
+                if (user.NumberOfBooksAvailable <= 0)
                 {
                     ModelState.AddModelError("", $"You Reached the maximum number of Borrowing!");
 
@@ -136,7 +136,7 @@ namespace Readify_Library.Controllers
                 await _unitOfWork.Borrowings.AddAsync(borrowing);
 
                 book.AvailableCopies -= 1;
-                user.UserType.ExtraBooks -= 1;
+                user.NumberOfBooksAvailable -= 1;
 
                 await _unitOfWork.SaveAsync();
 
@@ -170,7 +170,7 @@ namespace Readify_Library.Controllers
 
             borrowing.Status = enBorrowStatus.Returned;
             borrowing.ReturnDate = DateTime.Now;
-            borrowing.User.UserType.ExtraBooks += 1;
+            borrowing.User.NumberOfBooksAvailable += 1;
             borrowing.Book.AvailableCopies += 1;
             borrowing.PenaltyAmount = 0;
 
@@ -292,7 +292,7 @@ namespace Readify_Library.Controllers
                     });
                 }
 
-                if (user.UserType.ExtraBooks <= 0)
+                if (user.NumberOfBooksAvailable <= 0)
                 {
                     return Json(new
                     {

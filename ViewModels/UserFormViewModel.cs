@@ -12,13 +12,13 @@ namespace Readify_Library.ViewModels
 
         [Required]
         [StringLength(100, ErrorMessage = "Max Length of First Name Must be 100 Characters at most!.")]
-        [RegularExpression(@"^[a-zA-Z\s]+$", ErrorMessage = "First name must contain only letters.")]
+        [RegularExpression(@"^[a-zA-Z\u0600-\u06FF\s]+$", ErrorMessage = "First name must contain only Arabic and English letters.")]
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "Max Length of Last Name Must be 100 Characters at most!.")]
-        [RegularExpression(@"^[a-zA-Z\s]+$", ErrorMessage = "Last name must contain only letters.")]
+        [RegularExpression(@"^[a-zA-Z\u0600-\u06FF\s]+$", ErrorMessage = "Last name must contain only Arabic and English letters.")]
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
 

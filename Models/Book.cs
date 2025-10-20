@@ -13,7 +13,7 @@ namespace Readify_Library.Models
 
         [Required]
         [StringLength(60, ErrorMessage = "Max Length of Author Must be 60 Characters at most!.")]
-        [RegularExpression(@"^[a-zA-Z\s]+$", ErrorMessage = "Author name must contain only letters.")]
+        [RegularExpression(@"^[a-zA-Z\u0600-\u06FF\s]+$", ErrorMessage = "Author name must contain only Arabic and English letters.")]
         public string Author { get; set; }
 
         public string? ISBN { get; set; }
